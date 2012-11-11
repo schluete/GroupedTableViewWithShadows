@@ -1,0 +1,25 @@
+Stuff
+.DS_Store
+
+# Exclude user-specific XCode 3 and 4 files
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+build
+
+*.xcodeproj/xcuserdata/*.xcuserdatad
+*.xcodeproj/project.xcworkspace/xcuserdata/*.xcuserdatad
+*.xcworkspace/xcuserdata/*.xcuserdatad
+
+build/
+*.o
+*.LinkFileList
+*.hmap
+*~.nib/
+*.swp
+*~
+*.dat
+*.dep
