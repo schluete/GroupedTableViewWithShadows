@@ -12,8 +12,9 @@
 - (void)addShadowToCellInTableView:(UITableView *)tableView
                        atIndexPath:(NSIndexPath *)indexPath
 {
-  BOOL isFirstRow = !indexPath.row;
-  BOOL isLastRow = (indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1);
+  BOOL SingleRow = [tableView numberOfRowsInSection:indexPath.section] == 1;
+  BOOL isFirstRow = !indexPath.row && !SingleRow;
+  BOOL isLastRow = (indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1) && !SingleRow;
   
   // the shadow rect determines the area in which the shadow gets drawn
   CGRect shadowRect = CGRectInset(self.backgroundView.bounds, 0, -10);
@@ -21,7 +22,10 @@
     shadowRect.origin.y += 10;
   else if(isLastRow)
     shadowRect.size.height -= 10;
-  
+  else if (SingleRow){
+     shadowRect.origin.y += 10;
+      shadowRect.size.height -= 20;
+  }
   // the mask rect ensures that the shadow doesn't bleed into other table cells
   CGRect maskRect = CGRectInset(self.backgroundView.bounds, -20, 0);
   if(isFirstRow) {
@@ -30,7 +34,11 @@
   }
   else if(isLastRow)
     maskRect.size.height += 10;
-  
+  else if (SingleRow){
+      maskRect.origin.y -= 10;
+      maskRect.size.height += 20;
+  }
+
   // now configure the background view layer with the shadow
   CALayer *layer = self.backgroundView.layer;
   layer.shadowColor = [UIColor redColor].CGColor;
